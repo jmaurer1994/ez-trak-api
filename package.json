@@ -1,5 +1,5 @@
 {
-  "name": "exercise-spa",
+  "name": "ez-trak-api",
   "version": "1.0.0",
   "description": "Assignment 6 REST API",
   "main": "ExerciseController.mjs",
