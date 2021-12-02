@@ -39,11 +39,12 @@ app.get("/exercises", (req, res) => {
         });
 });
 /**
- * Update the user whose _id is provided and set their name, age, email, phoneNumber to 
+ * Update the exercises whose _id is provided and set their name, age, email, phoneNumber to 
  * the values provided in the query parameters
  */
-app.put("/exercises/:id", (req, res) => {
-    exercises.updateExercise(req.params.id, req.query.name, req.query.age, req.query.email, req.query.phoneNumber)
+app.put("/exercises/:_id", (req, res) => {
+    console.log("here");
+    exercises.updateExercise(req.params._id, req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)
         .then(modifiedCount => {
             if (modifiedCount === 0) {
                 res.status(404).json({error : 'Resource not found'});
@@ -58,8 +59,8 @@ app.put("/exercises/:id", (req, res) => {
 /**
  * Delete the user(s) who match the given query parameters
  */
-app.delete("/exercises/:id", (req, res) => {
-    exercises.deleteExercise(req.params.id)
+app.delete("/exercises/:_id", (req, res) => {
+    exercises.deleteExercise(req.params._id)
         .then(deletedCount => {
             if (deletedCount === 1) { 
                 console.log(`Sending 204 response to ${req.ip}`);

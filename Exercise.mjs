@@ -73,7 +73,7 @@ const updateExercise = async (_id, name, reps, weight, unit, date) => {
         unit: unit,
         date: date
     };
-    const result = await User.findByIdAndUpdate(_id, { name: name, reps: reps, weight: weight, unit: unit, date: date }, { useFindAndModify: false });
+    const result = await Exercise.findByIdAndUpdate(_id, { name: name, reps: reps, weight: weight, unit: unit, date: date }, { useFindAndModify: false });
 
     return result;
 }
