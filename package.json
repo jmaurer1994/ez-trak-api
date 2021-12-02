@@ -5,8 +5,7 @@
   "main": "ExerciseController.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ExerciseController.mjs",
-    "dbseed": "node exercise_seeder.js"
+    "start": "nodemon ExerciseController.mjs"
   },
   "author": "",
   "license": "ISC",
