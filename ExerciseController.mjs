@@ -5,7 +5,7 @@ const app = express();
 const PORT = 3000;
 
 /**
- * Create a new user with the name, age, email, and phone number provided in the query
+ * Create a new exercise with the name, reps, weight, unit, date provided in the request body
 parameters
  */
 
@@ -24,30 +24,28 @@ app.post("/exercises", (req, res) => {
         });
 });
 /**
- * Retrieve users. 
- * If the query parameters include a name, age, email, or phone users that match those parameters are returned.
- * Otherwise, all users are returned.
+ * Retrieve exercises. 
  */
 app.get("/exercises", (req, res) => {
 
-        exercises.getExercises().then(exercises => {
-            console.log(`Sending 200 response to ${req.ip} containing ${exercises.length} documents`);
-            res.status(200).json(exercises);
-        })
+    exercises.getExercises().then(exercises => {
+        console.log(`Sending 200 response to ${req.ip} containing ${exercises.length} documents`);
+        res.status(200).json(exercises);
+    })
         .catch(error => {
             res.status(500).json({ error: error.message });
         });
 });
 /**
- * Update the exercises whose _id is provided and set their name, age, email, phoneNumber to 
- * the values provided in the query parameters
+ * Update the exercise whose _id is provided and set their name, reps, weight, unit, date to
+ * the values provided in the request body
  */
-app.put("/exercises/:_id", (req, res) => {
+app.put("/exercises/:id", (req, res) => {
     console.log("here");
-    exercises.updateExercise(req.params._id, req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)
+    exercises.updateExercise(req.params.id, req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)
         .then(modifiedCount => {
             if (modifiedCount === 0) {
-                res.status(404).json({error : 'Resource not found'});
+                res.status(404).json({ error: 'Resource not found' });
             }
             console.log(`Sending 200 response to ${req.ip}, 1 document updated`);
             res.status(200).json({ modifiedCount: modifiedCount });
@@ -57,12 +55,12 @@ app.put("/exercises/:_id", (req, res) => {
         });
 });
 /**
- * Delete the user(s) who match the given query parameters
+ * Delete the exercises(s) who match the given _id.
  */
-app.delete("/exercises/:_id", (req, res) => {
-    exercises.deleteExercise(req.params._id)
+app.delete("/exercises/:id", (req, res) => {
+    exercises.deleteExercise(req.params.id)
         .then(deletedCount => {
-            if (deletedCount === 1) { 
+            if (deletedCount === 1) {
                 console.log(`Sending 204 response to ${req.ip}`);
                 res.status(204).send();
             } else {
@@ -70,7 +68,8 @@ app.delete("/exercises/:_id", (req, res) => {
             }
         })
         .catch(error => {
-            console.error(error); res.status(500).json({ error: error.message });
+            console.error(error); 
+            res.status(500).json({ error: error.message });
         });
 });
 app.listen(PORT, () => {

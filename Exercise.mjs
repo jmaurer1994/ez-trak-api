@@ -1,7 +1,7 @@
 // Get the mongoose object
 import mongoose from 'mongoose';
 
-// Prepare to the database users_db in the MongoDB server running locally on port 27017
+// Prepare to the database exercises_db in the MongoDB server running locally on port 27017
 mongoose.connect(
     'mongodb://localhost:27017/exercises_db',
     { useNewUrlParser: true }
@@ -42,8 +42,8 @@ const Exercise = mongoose.model("Exercise", ExerciseSchema);
 calling save
  */
 const createExercise = async (name, reps, weight, unit, date) => {
-    // Call the constructor to create an instance of the model class User
-    const exercise = new Exercise({ name:name, reps: reps, weight:weight, unit:unit, date:date });
+    // Call the constructor to create an instance of the model class Exercise
+    const exercise = new Exercise({ name, reps, weight, unit, date });
     // Call save to persist this object as a document in MongoDB
     return exercise.save();
 }
@@ -56,13 +56,14 @@ const getExercises = async () => {
     return Exercise.find();
 }
 /**
- * Update the name,age,email,phoneNumber properties of the user with the id value 
+ * Update the name, reps, weight, unit, and date properties of the exercise with the id value
 provided
  * @param {String} _id 
- * @param {String} name
- * @param {Number} age 
- * @param {String} email
- * @param {Number} phoneNumber
+ * @param {String} name 
+ * @param {Number} reps 
+ * @param {Number} weight
+ * @param {String} unit 
+ * @param {String} date 
  * @returns A promise. Resolves to the number of documents modified
  */
 const updateExercise = async (_id, name, reps, weight, unit, date) => {
@@ -78,7 +79,7 @@ const updateExercise = async (_id, name, reps, weight, unit, date) => {
     return result;
 }
 /**
- * Delete the user with provided id value
+ * Delete the exercise with provided id value
  * @param {String} _id 
  * @returns A promise. Resolves to the count of deleted documents
  */
