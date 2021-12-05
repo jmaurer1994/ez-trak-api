@@ -15,7 +15,7 @@ app.post("/exercises", (req, res) => {
 
     exercises.createExercise(req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)
         .then(exercise => {
-            console.log(`Sending 201 response to ${req.ip} of { name: ${exercise.name}, reps: ${exercise.reps}, weight: ${exercise.weight}, unit: ${exercise.unit}, date: ${exercise.date}, }`)
+            console.log(`Sending 201 response to ${req.ip} of { name: ${exercise.name}, reps: ${exercise.reps}, weight: ${exercise.weight}, unit: ${exercise.unit}, date: ${exercise.date} }`)
             res.status(201).json(exercise);
         })
         .catch(error => {
