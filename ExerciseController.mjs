@@ -41,14 +41,13 @@ app.get("/exercises", (req, res) => {
  * the values provided in the request body
  */
 app.put("/exercises/:id", (req, res) => {
-    console.log("here");
     exercises.updateExercise(req.params.id, req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)
-        .then(modifiedCount => {
-            if (modifiedCount === 0) {
+        .then(exercise => {
+            if (exercise === null) {
                 res.status(404).json({ error: 'Resource not found' });
             }
             console.log(`Sending 200 response to ${req.ip}, 1 document updated`);
-            res.status(200).json({ modifiedCount: modifiedCount });
+            res.status(200).json(exercise);
         })
         .catch(error => {
             res.status(500).json({ error: error.message });
